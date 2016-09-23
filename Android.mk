@@ -1,4 +1,7 @@
 ifeq ($(AB_OTA_UPDATER),true)
+# TODO:  Find a better way to separate build configs for ADP vs non-ADP devices
+ifneq ($(BOARD_IS_AUTOMOTIVE),true)
+ifneq ($(filter msm8996 msm8998 sdm845,$(TARGET_BOARD_PLATFORM)),)
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/gpt-utils/inc
@@ -21,4 +24,6 @@ LOCAL_SRC_FILES := boot_control.cpp
 LOCAL_MODULE := bootctrl.$(TARGET_BOARD_PLATFORM)
 include $(BUILD_STATIC_LIBRARY)
 
+endif
+endif
 endif
